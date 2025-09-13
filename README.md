@@ -32,7 +32,12 @@ Workflow (Strands multi-agent with fallback)
 
 poetry run strands-agents workflow --topic "factory A thermal stability"
 
+Research Workflow Example
+
 ```
+
+poetry run strands-agents research --query "What are quantum computers?"
+poetry run strands-agents research --query "Lemon cures cancer"
 
 ```
 
