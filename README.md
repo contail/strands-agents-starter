@@ -48,20 +48,25 @@ poetry run strands-agents tick --name demo --question "요약해줘"
 poetry run strands-agents tick --engine strands --name demo --question "요약해줘"
 ```
 
-### Multi-Agent Workflows
+### Workflow Examples
 
 ```bash
 # Run three-phase workflow (research → critique → finalize)
 poetry run strands-agents workflow --topic "factory A thermal stability"
 
-# Run research workflow with web capabilities
-# Note: Requires strands-agents package with http_request tool
+# Run research workflow (Researcher → Analyst → Writer)
 poetry run strands-agents research --query "What are quantum computers?"
 poetry run strands-agents research --query "Lemon cures cancer"
+```
 
+### Multi-Agent System
+
+```bash
 # Run Teacher's Assistant multi-agent system
+# Routes queries to specialized agents (Math, English, Language, CS, General)
 poetry run strands-agents multi-agent --query "Solve x^2 + 5x + 6 = 0"
 poetry run strands-agents multi-agent --query "Translate 'Hello' to Spanish"
+poetry run strands-agents multi-agent --query "What's the difference between affect and effect?"
 ```
 
 ## Documentation
