@@ -1,47 +1,70 @@
-Strands Agents (Local LLM ready)
+# Strands Agents Starter
 
-Setup
+A starter project for building AI agents using the Strands Agents SDK with local LLM support.
 
-1. Python 3.13 + Poetry
+## Prerequisites
 
-```
+- Python 3.13
+- Poetry (for dependency management)
+
+## Setup
+
+### 1. Python 3.13 + Poetry
+
+```bash
+# Set Python 3.13 as the project interpreter
 poetry env use $(command -v python3.13)
+
+# Install all dependencies including strands-agents
 poetry install
 ```
 
-2. .env
+### 2. Environment Configuration
 
-```
-# Copy this to .env and adjust as needed
+Create a `.env` file with the following configuration:
+
+```bash
+# Required
 LLM_BASE_URL=
 LLM_MODEL=auto
 HTTP_TIMEOUT=60
+
 # Optional for Strands
 STRANDS_PROVIDER=ollama
 ```
 
-CLI
+## CLI Commands
 
-```
+### Basic Commands
+
+```bash
+# List available models
 poetry run strands-agents models
-poetry run strands-agents tick --name demo --question "요약해줘"
-poetry run strands-agents tick --engine strands --name demo --question "요약해줘"
 
-Workflow (Strands multi-agent with fallback)
+# Run single agent step
+poetry run strands-agents tick --name demo --question "요약해줘"
+
+# Run with Strands engine
+poetry run strands-agents tick --engine strands --name demo --question "요약해줘"
 ```
 
+### Multi-Agent Workflows
+
+```bash
+# Run three-phase workflow (research → critique → finalize)
 poetry run strands-agents workflow --topic "factory A thermal stability"
 
-Research Workflow Example
-
-```
-
+# Run research workflow with web capabilities
+# Note: Requires strands-agents package with http_request tool
 poetry run strands-agents research --query "What are quantum computers?"
 poetry run strands-agents research --query "Lemon cures cancer"
 
+# Run Teacher's Assistant multi-agent system
+poetry run strands-agents multi-agent --query "Solve x^2 + 5x + 6 = 0"
+poetry run strands-agents multi-agent --query "Translate 'Hello' to Spanish"
 ```
 
-Strands SDK
+## Documentation
 
-- Docs: https://strandsagents.com/latest/
-- The adapter uses Strands Agent when available (Ollama provider), otherwise falls back to the local LLM client.
+- **Strands SDK Docs**: https://strandsagents.com/latest/
+- **Architecture**: The adapter uses Strands Agent when available (Ollama provider), otherwise falls back to the local LLM client.

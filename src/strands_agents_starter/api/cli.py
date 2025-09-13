@@ -65,6 +65,44 @@ def workflow(topic: str = "modern manufacturing sustainability") -> None:
 
 
 @app.command()
+def multi_agent(query: str = "What is the capital of France?") -> None:
+    """Run the Teacher's Assistant multi-agent system.
+    
+    This demonstrates a multi-agent architecture where specialized agents work together:
+    - Math Assistant: Mathematical calculations and concepts
+    - English Assistant: Grammar and language comprehension
+    - Language Assistant: Translations between languages
+    - Computer Science Assistant: Programming and technical concepts
+    - General Assistant: General knowledge queries
+    
+    Args:
+        query: The query to process through the multi-agent system
+    """
+    try:
+        # Import the multi-agent example
+        import sys
+        from pathlib import Path
+
+        # Add project root to Python path
+        project_root = Path(__file__).parent.parent.parent.parent
+        sys.path.insert(0, str(project_root))
+        
+        from examples.multi_agent_example import create_teacher_assistant, run_multi_agent
+
+        # Create and run the multi-agent system
+        response = run_multi_agent(query)
+        
+        typer.echo(f"\nFINAL RESPONSE:\n{response}")
+        
+    except ImportError as e:
+        typer.echo(f"Error: {e}")
+        typer.echo("\nThe multi-agent example requires all dependencies to be installed.")
+        typer.echo("Please run: poetry install")
+    except (RuntimeError, ValueError) as e:
+        typer.echo(f"Error running multi-agent system: {e}")
+
+
+@app.command()
 def research(query: str = "What are quantum computers?") -> None:
     """Run the multi-agent research workflow example.
     
@@ -77,19 +115,25 @@ def research(query: str = "What are quantum computers?") -> None:
         query: The research query or factual claim to investigate
     """
     try:
+        # Try to import from the examples directory
+        import sys
+        from pathlib import Path
+
+        # Add project root to Python path
+        project_root = Path(__file__).parent.parent.parent.parent
+        sys.path.insert(0, str(project_root))
+        
         from examples.research_workflow import create_research_workflow, run_research_workflow
 
-        # Create the workflow agents
-        researcher_agent, analyst_agent, writer_agent = create_research_workflow()
-        
-        # Run the workflow
-        report = run_research_workflow(query, researcher_agent, analyst_agent, writer_agent)
+        # Create and run the workflow
+        report = run_research_workflow(query)
         
         typer.echo(f"\nFINAL REPORT:\n{report}")
         
     except ImportError as e:
-        typer.echo(f"Error importing research workflow: {e}")
-        typer.echo("Make sure you're running from the project root directory.")
+        typer.echo(f"Error: {e}")
+        typer.echo("\nThe research workflow requires the 'strands-agents' package to be installed.")
+        typer.echo("Please run: poetry install")
     except (RuntimeError, ValueError) as e:
         typer.echo(f"Error running research workflow: {e}")
 
