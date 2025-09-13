@@ -1,0 +1,11 @@
+[MASTER]
+init-hook='import sys, os, glob; sys.path.insert(0, os.path.join(os.getcwd(), "src")); v=os.path.join(os.getcwd(), ".venv"); [sys.path.insert(0, p) for p in glob.glob(os.path.join(v, "lib", "python*", "site-packages"))]'
+
+[MESSAGES CONTROL]
+disable=missing-docstring,too-few-public-methods
+
+[TYPECHECK]
+ignored-modules=
+
+[FORMAT]
+max-line-length=100
